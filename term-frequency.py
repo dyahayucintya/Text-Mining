@@ -45,17 +45,18 @@ def main():
 	print ("==LIST OF WORD == ",listOfWord)
 	print ("==SUM OF DOC == ",len(listOfDoc))
 	
-	writefile = open('test1.csv', 'wb')
-	writer = csv.writer(writefile)
-	for i in range(len(listOfDoc)):
-		counterlist = [listOfDoc[i][word] for word in listOfWord ]
-		print ("==NILAI WORD FREK. UTK DOC ",listOfDocName[i], " : ", counterlist)
-		# for j in range(0, len(counterlist)):
-		# 	writer.writerow(counterlist) 
-
-	#for key, val in (len(counterlist)): 
-	
-	writefile.close() 
+	with open('result.csv','wb') as csvfile:
+		reswriter = csv.writer(csvfile, delimiter=',', quotechar='|')
+		tempWord = [' ']
+		tempWord.extend(listOfWord)
+		reswriter.writerow(tempWord)
+		for i in range(len(listOfDoc)):
+			j = i + 1
+			doctitle = "Doc "+`j`
+			counterlist = [listOfDoc[i][word] for word in listOfWord]
+			counterlist.insert(0, doctitle)
+			print ("==NILAI WORD FREK. UTK DOC ",listOfDocName[i], " : ", counterlist)
+			reswriter.writerow(counterlist)
 
 main()
 
